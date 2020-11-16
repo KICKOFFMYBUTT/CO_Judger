@@ -1,0 +1,6 @@
+{
+    "name": "loadstore", 
+    "hex": "loadstore.hex",
+    "display": "loadstore.txt",
+    "asm": "loadstore.asm"
+}

@@ -1,0 +1,6 @@
+{
+    "name": "WeakTest1", 
+    "hex": "test1.hex",
+    "display": "test1.txt",
+    "asm": "test1.asm"
+}
