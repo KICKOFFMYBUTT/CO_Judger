@@ -33,3 +33,6 @@ from judger.Judger import Judger
 
 jg = Judger('demo/task1/task1.json')
 jg.judge()
+print("-----------------------------")
+jg = Judger('demo/task2/task2.json')
+jg.judge()

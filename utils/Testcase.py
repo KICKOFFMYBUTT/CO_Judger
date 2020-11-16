@@ -18,6 +18,8 @@ class Testcase:
         ret.path = os.path.dirname(confname)
         ret.name = conf['name']
         ret.hex = conf['hex']
+        ret.asm = None
+        ret.display = None
         if 'asm' in conf:
             ret.asm = conf['asm']
         if 'display' in conf:
