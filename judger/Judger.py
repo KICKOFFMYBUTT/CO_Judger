@@ -18,7 +18,7 @@ class Judger:
         self.testcaseSet = []
         for test in self.task['testcases']:
             for stdtest in globalTestcases:
-                if test['name'] == stdtest['name']:
+                if test == stdtest['name']:
                     self.testcaseSet.append(Testcase.loadFrom(stdtest['path']))
                     break
     def __init__(self, task):
