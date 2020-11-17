@@ -10,9 +10,6 @@
     }, {
         "name": "WeakTest1",
         "path": "testcase/weak1/test1.json"
-    }, {
-        "name": "wjy",
-        "path": "testcase/wjy/wjy.json"
     }],
     "simulatorSupported": [{
         "name": "iverilog",
