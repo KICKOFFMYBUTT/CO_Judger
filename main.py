@@ -1,9 +1,3 @@
-'''
-BUAA Computer Organization, Local Judger for Verilog
-Judger Identifier: 19.06.C.O
-*AUTHOR: dhy*
-'''
-
 from utils.Logger import Logger
 from utils.IO import IO
 from utils.Testcase import Testcase
