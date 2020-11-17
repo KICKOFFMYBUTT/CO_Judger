@@ -20,7 +20,7 @@ import os, sys
 def main(args):
     if len(args) == 1:
         # TODO: launch GUI
-        print("GUI Launch")
+        print("GUI Launch(TODO)")
         pass
     else:
         # Parse Command Arguments

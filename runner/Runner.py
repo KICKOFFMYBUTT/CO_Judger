@@ -63,5 +63,8 @@ class Runner:
         if not r:
             IO.writestr('! Runner.run: load testcase error.')
             return False
+        outpath = "{path}/out".format(path=self.path)
+        if not os.path.exists(outpath):
+            os.mkdir(outpath)
         ###### Code Here ######
         return True

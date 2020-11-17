@@ -15,12 +15,16 @@ class Checker:
         res = os.popen(cmd)
         res_lines = res.readlines()
         res_lines = [line.strip() for line in res_lines]
+        valid_lines = []
+        for l in res_lines:
+            if len(l) != 0 and l[0] != '-':
+                valid_lines.append(l)
+            # print(l)
+        res_lines = valid_lines
         # print(res_lines)
-        # print(res_lines)
-        # print("\n".join(res_lines))
         if res_lines[-1].strip() == 'Accepted' :
             return ('Accepted', 'Accepted')
         elif res_lines[-1].strip() == 'Wrong Answer' :
-            return ('Wrong Answer', "\n".join(res_lines[1:-1]))
+            return ('Wrong Answer', "\n".join(res_lines[0:-1]))
         else:
             return None

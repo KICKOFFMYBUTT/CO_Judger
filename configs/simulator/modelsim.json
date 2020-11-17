@@ -1,3 +1,17 @@
 {
-    
+    "name": "modelsim",
+    "desc": "ModelSim-SE64",
+    "modelsim-path": "D:\\ModelSim\\win64",
+    "tcl": [
+        "# Create the work library ",
+        "vlib work",
+        "vmap work work",
+        "# Compile the verilog files ",
+        "vlog src_unzip/mips.v",
+        "vlog src_unzip/tb.v ",
+        "# Run simulation",
+        "vsim -novopt tb_mips",
+        "# run",
+        "run -all"
+    ]
 }

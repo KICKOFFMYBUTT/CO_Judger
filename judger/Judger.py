@@ -9,7 +9,7 @@ from checker.Checker import Checker
 from utils.Testcase import Testcase
 from utils.IO import IO
 
-import runner
+from runner import iVerilog, ModelSim, ISE
 
 import os, shutil
 class Judger:
@@ -29,11 +29,11 @@ class Judger:
         # load tool runner
         self.runner_type = None
         if self.task['tool'] == 'iverilog':
-            self.runner_type = runner.iVerilog.iVerilog_Runner
+            self.runner_type = iVerilog.iVerilog_Runner
         elif self.task['tool'] == 'ise':
-            pass
+            self.runner_type = ISE.ISE_Runner
         elif self.task['tool'] == 'modelsim':
-            pass
+            self.runner_type = ModelSim.ModelSim_Runner
         else:
             self.runner_type = None
         # load testcases

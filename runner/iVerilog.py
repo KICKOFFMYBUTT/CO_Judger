@@ -29,10 +29,6 @@ class iVerilog_Runner(Runner):
         if r != 0:
             IO.writestr("! Runner(iverilog).run: Error Occured on iVerilog Compiling")
             return False
-        # mkdir for out
-        outpath = "{path}/out".format(path=self.path)
-        if not os.path.exists(outpath):
-            os.mkdir(outpath)
         r = os.system("cd {path} && {vvp} src_unzip/mips.vvp > out/{out}".format(path=self.path, vvp=vvp, out=out))
         # r = os.system("cd {path} && {vvp} src_unzip/mips.vvp".format(path=self.path, vvp=vvp))
         if r != 0:
