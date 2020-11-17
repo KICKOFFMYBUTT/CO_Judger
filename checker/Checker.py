@@ -10,10 +10,14 @@ class Checker:
         if not os.path.exists(src2):
             IO.writestr("! checker: {src} not found".format(src=src2))
             return None
-        res = os.popen("checker\\displaychecker.exe {0} {1}".format(src1, src2))
+        cmd = "checker\\displaychecker.exe {0} {1}".format(src1, src2)
+        # print("> {cmd}".format(cmd=cmd))
+        res = os.popen(cmd)
         res_lines = res.readlines()
         res_lines = [line.strip() for line in res_lines]
         # print(res_lines)
+        # print(res_lines)
+        # print("\n".join(res_lines))
         if res_lines[-1].strip() == 'Accepted' :
             return ('Accepted', 'Accepted')
         elif res_lines[-1].strip() == 'Wrong Answer' :

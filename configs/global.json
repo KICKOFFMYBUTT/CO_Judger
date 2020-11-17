@@ -1,40 +1,35 @@
 {
-    "identifier": "ji.xiao.zu", 
-    "testcases": [
-        {
-            "name": "jump",
-            "path": "testcase/jump/jump.json"
-        },
-        {
-            "name": "loadstore",
-            "path": "testcase/loadstore/loadstore.json"
-        },
-        {
-            "name": "WeakTest1",
-            "path": "testcase/weak1/test1.json"
-        }
-    ],
-    "simulatorSupported": [
-        {
-            "name": "iverilog",
-            "config": "iverilog.json"
-        },
-        {
-            "name": "modelsim",
-            "config": "modelsim.json"
-        }
-    ],
-    "marsPath": "mars/Mars_modified.jar", 
-    "logfile" : "log.txt",
+    "identifier": "ji.xiao.zu",
+    "defaultTestcasePath": "testcase",
+    "testcases": [{
+        "name": "jump",
+        "path": "testcase/jump/jump.json"
+    }, {
+        "name": "loadstore",
+        "path": "testcase/loadstore/loadstore.json"
+    }, {
+        "name": "WeakTest1",
+        "path": "testcase/weak1/test1.json"
+    }, {
+        "name": "wjy",
+        "path": "testcase/wjy/wjy.json"
+    }],
+    "simulatorSupported": [{
+        "name": "iverilog",
+        "config": "iverilog.json"
+    }, {
+        "name": "modelsim",
+        "config": "modelsim.json"
+    }],
+    "marsPath": "mars/Mars_m.jar",
+    "logfile": "log.txt",
     "inputfilename": "code.txt",
     "testbench": "runner/tb.v",
     "default-task": {
         "name": "Task",
-        "mode": "standard", 
+        "mode": "standard",
         "src": "",
         "tool": "iverilog",
-        "testcases": [
-            
-        ]
+        "testcases": []
     }
 }

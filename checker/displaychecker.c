@@ -12,8 +12,8 @@ char *my_gets(char *dest, FILE *fp) {
     int cnt = 0;
     while ((c = fgetc(fp)) != EOF && c != '\n' && cnt < GETS_LIM)
         *(p++) = c, cnt++;
-    if (c == EOF && p == dest) return NULL;
     *p = 0;
+    if (c == EOF && p == dest) return NULL;
     while ((*(p - 1)) == '\r' || (*(p - 1)) == '\n')
         *(--p) = 0;
     return dest;
@@ -104,12 +104,20 @@ bool parse_line(const char *sp, int *p_time, int *p_pc, int *p_dest, int *p_addr
         sp++;
     }
     if (num_cnt != 8) return false;
+
     /*if (dest == DEST_GRF)
         printf("GRF: Time = %d, PC = %08x, grf = %d, data = %08x\n", time, pc, addr, data);
     else 
         printf("DM: Time = %d, PC = %08x, addr = %08x, data = %08x\n", time, pc, addr, data);
-    */
-    
+    // */
+   
+    // Omit Write GPR[0]
+    if (dest == DEST_GRF && addr == 0) {
+        // printf("- Write to Reg 0\n");
+        return false;
+    }
+        
+
     *p_time = time;
     *p_pc = pc;
     *p_dest = dest;
@@ -150,20 +158,22 @@ int main(int argc, char *argv[])
     bool flg_mars = 0, flg_cpu = 0;
     flg_mars = (my_gets(mars_line, fin_mars) != NULL) ; 
     flg_cpu = (my_gets(cpu_line, fin_cpu) != NULL);
-    while (flg_mars && flg_cpu) {
+    while (flg_mars || flg_cpu) {
         mars_lineid += flg_mars;
         cpu_lineid += flg_cpu;
         bool valid_mars = parse_line(mars_line, &mars_time, &mars_pc, &mars_dest, &mars_addr, &mars_data);
         bool valid_cpu = parse_line(cpu_line, &cpu_time, &cpu_pc, &cpu_dest, &cpu_addr, &cpu_data);
         while ((flg_mars && !valid_mars) || (flg_cpu && !valid_cpu)) {
             if (!valid_mars) {
-                printf("- Omitted std_display Line %d\n", mars_lineid);
+                if (flg_mars)
+                    printf("- Omitted std_display Line %d\n", mars_lineid);
                 flg_mars = (my_gets(mars_line, fin_mars) != NULL);
                 mars_lineid += flg_mars;
                 valid_mars = flg_mars && parse_line(mars_line, &mars_time, &mars_pc, &mars_dest, &mars_addr, &mars_data);
             }
             if (!valid_cpu) {
-                printf("- Omitted cpu_display Line %d\n", cpu_lineid);
+                if (flg_cpu)
+                    printf("- Omitted cpu_display Line %d\n", cpu_lineid);
                 flg_cpu = (my_gets(cpu_line, fin_cpu) != NULL);
                 cpu_lineid += flg_cpu;
                 valid_cpu = flg_cpu && parse_line(cpu_line, &cpu_time, &cpu_pc, &cpu_dest, &cpu_addr, &cpu_data);
@@ -184,9 +194,11 @@ int main(int argc, char *argv[])
         else {
             if (valid_mars) {
                 printf("Output Less Than Needed!\n");
+                printf("Following std output is: %s\n", mars_line);
             }
             else {
                 printf("Output More Than Needed!\n");
+                printf("Following cpu output is: %s\n", cpu_line);
             }
             judge_result = false;
         }

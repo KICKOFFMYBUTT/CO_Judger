@@ -6,33 +6,51 @@ Judger Identifier: 19.06.C.O
 
 from utils.Logger import Logger
 from utils.IO import IO
-from runner.iVerilog import iVerilog_Runner
 from utils.Testcase import Testcase
 from checker.Checker import Checker
+from configs.config import Config
+# Runners
+from runner.iVerilog import iVerilog_Runner
 
+# Judger
 from judger.Judger import Judger
 
-# IO.writestr("hhhh")
+import os, sys
 
-# print(Testcase.caseList())
-# cases = Testcase.caseList()
-# for case in cases:
-#     print(case.path, case.asm, case.hex, case.display)
+def main(args):
+    if len(args) == 1:
+        # TODO: launch GUI
+        print("GUI Launch")
+        pass
+    else:
+        # Parse Command Arguments
+        argdict = {}
+        for i in range(1, len(args)):
+            if args[i] == '-run':
+                if i == len(args) - 1:
+                    print("! Error: no input task.")
+                    return
+                task = args[i + 1]
+                if not os.path.exists(task):
+                    print("! Error: task not exist")
+                    return 
+                argdict['run'] = task 
+                continue
+            if args[i] == '-load':
+                if i == len(args) - 1:
+                    print("! Error: No asm testcase input.")
+                    return 
+                testcase = args[i + 1]
+                if not os.path.exists(testcase):
+                    print("! Error: asm testcase not exist")
+                    return 
+                argdict['load'] = testcase
+        if 'load' in argdict:
+            Testcase.importAsm(argdict['load'],Config.getValue('configs/global.json', 'defaultTestcasePath'))
+        if 'run' in argdict:
+            jg = Judger(argdict['run'])
+            jg.judge()
+    pass 
 
-# runner = iVerilog_Runner("E:\\programming\\BUAA_CO_2020\\P4_SingleCycleCPU\\pre\\src\\mips.zip", "demo/task1/")
-# runner.run(cases[0], "out1.txt")
-
-# r = Checker.check('demo/task1/out/out1.txt', 'testcase/weak1/test1.txt')
-# # r = Checker.check('demo/task1/out/out1.txt', 'demo/task1/out/out1.txt')
-
-# if r == None:
-#     print("Checker Error")
-# else :
-#     print("Test Case #: {res}\nComment: {comment}".format(res=r[0],comment=r[1]))
-
-
-jg = Judger('demo/task1/task1.json')
-jg.judge()
-print("-----------------------------")
-jg = Judger('demo/task2/task2.json')
-jg.judge()
+if __name__ == '__main__':
+    main(sys.argv)

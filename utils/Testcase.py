@@ -39,29 +39,32 @@ class Testcase:
     @staticmethod
     def importAsm(asm, dst):
         mars = Config.getValue('configs/global.json', 'marsPath')
+        
+        testname = os.path.basename(asm).split('.')[0]
+        dst = dst + '/' + testname
         if os.path.exists(dst):
             shutil.rmtree(dst)
         os.mkdir(dst)
-        testname = os.path.basename(asm).split('.')[0]
         # Create Test
         # asm
         asmname = testname + '.asm'
-        shutil.copy(src=asm, dst=dst+'/'+testname+'/'+asmname)
+        shutil.copy(src=asm, dst=dst+'/'+asmname)
         # hex
         hexname = testname + '.hex'
         os.system("java -jar {mars} nc mc CompactDataAtZero a dump .text HexText {hex} {asm}".format(
-            mars=mars, hex=dst+'/'+testname+'/'+hexname, asm=dst+'/'+testname+'/'+asmname))
+            mars=mars, hex=dst+'/'+hexname, asm=dst+'/'+asmname))
         # display
         dispname = testname + '.txt'
         os.system("java -jar {mars} nc mc CompactDataAtZero {asm} > {disp}".format(
-            mars=mars, asm=dst+'/'+testname+'/'+asmname, disp=dst+'/'+testname+'/'+dispname))
+            mars=mars, asm=dst+'/'+asmname, disp=dst+'/'+dispname))
         # json configuration
         jsonname = testname+'.json'
         caseconf = {"name": testname, "asm": asmname, "hex": hexname, "display": dispname}
-        Config.saveConfig(dst+'/'+testname+'/'+jsonname, caseconf)
+        Config.saveConfig(dst+'/'+jsonname, caseconf)
         # added into testcase-set
         testcases = Config.getValue('configs/global.json', 'testcases')
-        testcases.append({'name': testname, 'path': dst+'/'+testname+'/'+jsonname})
+        testcases.append({'name': testname, 'path': dst+'/'+jsonname})
+        Config.setValue('configs/global.json', 'testcases', testcases)
     @staticmethod
     def rmcase(name):
         caselist = Config.getValue('configs/global.json', 'testcases')
