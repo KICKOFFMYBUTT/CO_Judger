@@ -23,8 +23,8 @@ class iVerilog_Runner(Runner):
             return False
         src_unzip = self.path + "/src_unzip"
         # iverilog compile and run
-        iverilog = (self.iv_path + "\\" if self.iv_path else "") + "iverilog"
-        vvp = (self.iv_path + "\\" if self.iv_path else "") + "vvp"
+        iverilog = (self.iv_path + os.sep if self.iv_path else "") + "iverilog"
+        vvp = (self.iv_path + os.sep if self.iv_path else "") + "vvp"
         r = os.system("cd {1} && {0} -o mips.vvp tb.v mips.v".format(iverilog, src_unzip))
         if r != 0:
             IO.writestr("! Runner(iverilog).run: Error Occured on iVerilog Compiling")
