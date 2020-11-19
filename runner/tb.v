@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 module tb_mips;
     reg clk;
-    reg reset;
+    reg reset = 1;
 
     mips uut (
         .clk(clk), 
@@ -10,7 +10,8 @@ module tb_mips;
 
     initial begin
         clk = 0;
-        #50000 $finish;
+        #10 reset = 0;
+        #50000000 $finish;
     end
     always #5 clk = ~clk;
 endmodule
