@@ -1,7 +1,20 @@
 # Display Checker
 from utils.IO import IO
-import os
+import os, shutil
 class Checker:
+    @staticmethod
+    def timetrim(src, dst):
+        if not os.path.exists(src):
+            IO.writestr("! timetrim: {src} not found.".format(src=src))
+            return False
+        if not os.path.exists(os.path.dirname(dst)):
+            os.mkdir(os.path.dirname(dst))
+        cmd = "checker\\timeprocess.exe < {0} > {1}".format(src, dst)
+        r = os.system(cmd)
+        if r != 0:
+            IO.writestr("! timetrim: error running timeprocess.exe")
+            return None
+        
     @staticmethod
     def check(src1, src2):
         if not os.path.exists(src1):

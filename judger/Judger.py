@@ -47,7 +47,9 @@ class Judger:
         for test in self.testcaseSet:
             runner1.run(test, 'out1.txt')
             runner2.run(test, 'out2.txt')
-            res = Checker.check(self.path + '/out/out1.txt', self.path + '/out/out2.txt')
+            Checker.timetrim(self.path + '/out/out1.txt', self.path + '/out/out1_t.txt')
+            Checker.timetrim(self.path + '/out/out2.txt', self.path + '/out/out2_t.txt')
+            res = Checker.check(self.path + '/out/out1_t.txt', self.path + '/out/out2_t.txt')
             outstr = 'Test Case #<{name}>: '.format(name=test.name)
             if res == None:
                 outstr += 'Checker Error'
@@ -63,7 +65,10 @@ class Judger:
                 IO.writestr('# Test Case #<{name}>: Omitted\nComment: Standard Answer not ready.'.format(name=test.name))
                 continue
             runner.run(test, 'out.txt')
-            res = Checker.check(test.path + '/' + test.display, self.path + '/out/out.txt')
+            Checker.timetrim(test.path + '/' + test.display, self.path + '/out/std_t.txt')
+            Checker.timetrim(self.path + '/out/out.txt', self.path + '/out/out_t.txt')
+            # res = Checker.check(test.path + '/' + test.display, self.path + '/out/out.txt')
+            res = Checker.check(self.path + '/out/std_t.txt', self.path + '/out/out_t.txt')
             outstr = 'Test Case #<{name}>: '.format(name=test.name)
             if res == None:
                 outstr += 'Checker Error'
