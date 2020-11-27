@@ -11,7 +11,7 @@ module tb_mips;
     initial begin
         clk = 0;
         #10 reset = 0;
-        #50000000 $finish;
+        #500000 $finish;
     end
     always #5 clk = ~clk;
 endmodule
