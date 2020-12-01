@@ -1,12 +1,15 @@
 {
     "identifier": "p5",
-    "defaultTestcasePath": "testcase",
+    "defaultTestcasePath": "testcase/ch",
     "simulatorSupported": [{
         "name": "iverilog",
         "config": "iverilog.json"
     }, {
         "name": "modelsim",
         "config": "modelsim.json"
+    },{
+        "name": "ise", 
+        "config": "ise.json"
     }],
     "marsPath": "mars/Mars_m.jar",
     "logfile": "log.txt",
@@ -16,7 +19,7 @@
         "name": "Task",
         "mode": "standard",
         "src": "",
-        "tool": "iverilog",
+        "tool": "ise",
         "testcases": []
     }
 }
