@@ -6,6 +6,8 @@
 
 所需运行环境：python3/Anaconda3，仿真软件支持 ISE/ModelSim/iVerilog 。
 
+2020.12.1 支持 P5 了
+
 ## 说明
 
 每一次评测采用一个 .json 文件来描述，分为标准模式和对拍模式。目前仅支持手动编写评测配置的 .json 文件。
@@ -18,13 +20,12 @@
     "src": "your_path\\mips.zip",
     "tool": "ise",
     "testcases": [
-        "WeakTest1",
-        "jump",
-        "loadstore"
+        "test1",
+        "test2"
     ]
 }
 ```
-对拍示例：
+对拍示例：**目前对拍功能有问题暂时不可使用！！！** 
 ```json
 {
     "name": "Demo Pat Task",
@@ -33,8 +34,7 @@
     "src2": "your_path\\yours.zip",
     "tool": "iverilog",
     "testcases": [
-        "jump",
-        "loadstore"
+        "test1"
     ]
 }
 ```
@@ -64,22 +64,25 @@
 
 ### 删除测试数据(手动)
 
-目前仅能手动删除测试数据，进入全局配置文件 `configs/global.json` 中找到 `testcases` 字段，手动删去想要删除的测试数据即可。
+目前仅能手动删除测试数据，进入配置文件 `configs/testcase.json` 中找到 `testcases` 字段，手动删去想要删除的测试数据即可。
 
 
 ## 一些全局的配置
-在 `configs/global.json` 中含有一些全局的配置，在 `configs/simulator` 中有对于每种仿真工具的配置。
+在 `configs/global.json` 中含有一些全局的配置，在 `configs/simulator` 中有对于每种仿真工具的配置。在 `configs/testcase.json` 里有评测机目前已经导入的测试数据集。
 
-### 全局配置 `global.json`
+#### 全局配置 `global.json`
 
 这个文件中的字段有：
 - `identifier` : 评测机的名字，可以自己取。
 - `defaultTestcasePath` : 默认用来导入测试数据的路径(绝对路径或者相对于评测机主程序 `main.py` 的相对路径)。
-- `testcases` : 支持的测试数据，每个测试数据包含的信息有测试数据名称和用来描述这组数据的 `.json` 文件的路径。
 - `simulatorSupported` : 支持的仿真工具。这项不要随意修改。
 - `marsPath` : 指定生成测试数据所选用的 Mars （一般为魔改 Mars ）
 
 注意：在本配置文件中所有的路径都是绝对路径或者相对于评测机主程序的相对路径。
+
+#### 测试数据配置 `testcase.json`
+
+这个文件内仅有一个字段 `testcases` : 支持的测试数据列表，每个测试数据包含的信息有测试数据名称和用来描述这组数据的 `.json` 文件的路径。
 
 ### 仿真软件的配置文件
 
