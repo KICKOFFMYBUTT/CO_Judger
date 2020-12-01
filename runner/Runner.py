@@ -23,6 +23,18 @@ class Runner:
         self.loadcode()
         pass
 
+    def _includeProtect(self, vfile):
+        macro = vfile.upper()
+        macro = ''.join(map(lambda x: x if (x.isupper() or x.islower() or x.isdigit()) else '_', macro.strip()))
+        macro = '_INCLUDED_%s_V' % macro 
+        # print("# Include Protect %s" % vfile)
+        # print("macro = ", macro)
+        with open(vfile, "r") as fp:
+            content = fp.read()
+        content = '`ifndef {macro}\n`define {macro}\n\n'.format(macro=macro) + content + '\n\n`endif\n'
+        with open(vfile, "w") as fp:
+            fp.write(content)
+        pass
     def loadcode(self):
         if not os.path.exists(self.src): 
             IO.writestr("! Runner.loadcode: Source Not Exist!")
@@ -41,9 +53,10 @@ class Runner:
             return False
         self.v_list = []
         for f in os.listdir(src_unzip):
-            if f[:-2] == ".v":
+            if f[-2:] == ".v":
                 self.v_list.append(f)
-                IO.writestr("# Extracted %s" % f)
+                # IO.writestr("# Extracted %s" % f)
+                self._includeProtect(src_unzip + '/' + f)
         # copy testbench
         tb = self.globconf['testbench']
         shutil.copyfile(src=tb, dst=src_unzip+'/tb.v')
@@ -57,6 +70,9 @@ class Runner:
             return False
         shutil.copyfile(src=hexname, dst=in_name)
         return True
+
+    def compile(self):
+        pass
 
     def run(self, testcase, out):
         r = self.loadtest(testcase)
