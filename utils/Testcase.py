@@ -63,12 +63,12 @@ class Testcase:
         caseconf = {"name": testname, "asm": asmname, "hex": hexname, "display": dispname}
         Config.saveConfig(dst+'/'+jsonname, caseconf)
         # added into testcase-set
-        testcases = Config.getValue('configs/testcases.json', 'testcases')
+        testcases = Config.getValue('configs/testcase.json', 'testcases')
         testcases.append({'name': testname, 'path': dst+'/'+jsonname})
-        Config.setValue('configs/testcases.json', 'testcases', testcases)
+        Config.setValue('configs/testcase.json', 'testcases', testcases)
     @staticmethod
     def rmcase(name):
-        caselist = Config.getValue('configs/testcases.json', 'testcases')
+        caselist = Config.getValue('configs/testcase.json', 'testcases')
         caselist.pop(name, 404)
-        Config.setValue('configs/testcases.json', 'testcases', caselist)
+        Config.setValue('configs/testcase.json', 'testcases', caselist)
     
