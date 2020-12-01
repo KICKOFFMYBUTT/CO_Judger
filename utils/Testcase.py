@@ -27,7 +27,8 @@ class Testcase:
         return ret
     @staticmethod
     def caseList():
-        caselist = Config.getValue('configs/global.json', 'testcases')
+        # caselist = Config.getValue('configs/global.json', 'testcases')
+        caselist = Config.getValue('configs/testcase.json', 'testcases')
         ret = []
         for item in caselist:
             # print(item)
@@ -51,23 +52,23 @@ class Testcase:
         shutil.copy(src=asm, dst=dst+'/'+asmname)
         # hex
         hexname = testname + '.hex'
-        os.system("java -jar {mars} nc mc CompactDataAtZero a dump .text HexText {hex} {asm}".format(
+        os.system("java -jar {mars} db nc mc CompactDataAtZero a dump .text HexText {hex} {asm}".format(
             mars=mars, hex=dst+'/'+hexname, asm=dst+'/'+asmname))
         # display
         dispname = testname + '.txt'
-        os.system("java -jar {mars} nc mc CompactDataAtZero {asm} > {disp}".format(
+        os.system("java -jar {mars} db nc mc CompactDataAtZero {asm} > {disp}".format(
             mars=mars, asm=dst+'/'+asmname, disp=dst+'/'+dispname))
         # json configuration
         jsonname = testname+'.json'
         caseconf = {"name": testname, "asm": asmname, "hex": hexname, "display": dispname}
         Config.saveConfig(dst+'/'+jsonname, caseconf)
         # added into testcase-set
-        testcases = Config.getValue('configs/global.json', 'testcases')
+        testcases = Config.getValue('configs/testcases.json', 'testcases')
         testcases.append({'name': testname, 'path': dst+'/'+jsonname})
-        Config.setValue('configs/global.json', 'testcases', testcases)
+        Config.setValue('configs/testcases.json', 'testcases', testcases)
     @staticmethod
     def rmcase(name):
-        caselist = Config.getValue('configs/global.json', 'testcases')
+        caselist = Config.getValue('configs/testcases.json', 'testcases')
         caselist.pop(name, 404)
-        Config.setValue('configs/global.json', 'testcases', caselist)
+        Config.setValue('configs/testcases.json', 'testcases', caselist)
     
