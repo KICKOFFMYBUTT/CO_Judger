@@ -1,43 +1,6 @@
 {
-    "identifier": "p4",
+    "identifier": "p5",
     "defaultTestcasePath": "testcase",
-    "testcases": [{
-        "name": "jump",
-        "path": "testcase/jump/jump.json"
-    }, {
-        "name": "loadstore",
-        "path": "testcase/loadstore/loadstore.json"
-    }, {
-        "name": "WeakTest1",
-        "path": "testcase/weak1/test1.json"
-    }, {
-        "name": "testpoint1",
-        "path": "testcase/testpoint1/testpoint1.json"
-    }, {
-        "name": "testpoint2",
-        "path": "testcase/testpoint2/testpoint2.json"
-    }, {
-        "name": "testpoint3",
-        "path": "testcase/testpoint3/testpoint3.json"
-    }, {
-        "name": "testpoint4",
-        "path": "testcase/testpoint4/testpoint4.json"
-    }, {
-        "name": "testpoint5",
-        "path": "testcase/testpoint5/testpoint5.json"
-    }, {
-        "name": "testpoint6",
-        "path": "testcase/testpoint6/testpoint6.json"
-    }, {
-        "name": "testpoint7",
-        "path": "testcase/testpoint7/testpoint7.json"
-    }, {
-        "name": "testpoint8",
-        "path": "testcase/testpoint8/testpoint8.json"
-    }, {
-        "name": "testpoint9",
-        "path": "testcase/testpoint9/testpoint9.json"
-    }],
     "simulatorSupported": [{
         "name": "iverilog",
         "config": "iverilog.json"
