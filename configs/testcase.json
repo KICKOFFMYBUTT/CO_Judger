@@ -1,0 +1,12 @@
+{
+    "testcases": [{
+        "name": "jump",
+        "path": "testcase/jump/jump.json"
+    }, {
+        "name": "loadstore",
+        "path": "testcase/loadstore/loadstore.json"
+    }, {
+        "name": "WeakTest1",
+        "path": "testcase/weak1/test1.json"
+    }]
+}
