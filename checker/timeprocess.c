@@ -151,5 +151,16 @@ int main()
         }
     }
 
+    if (has_grf) {
+        dispBehavior(&curr_grf);
+        printf("\n");
+        has_grf = 0;
+    }
+    if (has_dm) {
+        dispBehavior(&curr_dm);
+        printf("\n");
+        has_dm = 0;
+    }
+
     return 0;
 }
