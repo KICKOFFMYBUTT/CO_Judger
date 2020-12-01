@@ -2,10 +2,13 @@
     "name": "ise",
     "desc": "ISE 14.7",
     "ise-root": "D:\\Xilinx\\14.7\\ISE_DS",
-    "batch": [
+    "batch-compile": [
         "call {root}\\settings64.bat >nul 2>nul",
-        "\"{bin}\\vlogcomp\" src_unzip\\tb.v src_unzip\\mips.v >nul 2>nul",
-        "\"{bin}\\fuse\" work.tb_mips -o mips.exe >nul 2>nul",
+        "\"{bin}\\vlogcomp\" src_unzip\\tb.v {src} >nul 2>nul",
+        "\"{bin}\\fuse\" work.tb_mips -o mips.exe >nul 2>nul"
+    ],
+    "batch-run": [
+        "call {root}\\settings64.bat >nul 2>nul",
         "mips.exe -tclbatch ise.tcl > out\\{out}"
     ],
     "tcl": [
