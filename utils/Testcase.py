@@ -56,7 +56,7 @@ class Testcase:
             mars=mars, hex=dst+'/'+hexname, asm=dst+'/'+asmname))
         # display
         dispname = testname + '.txt'
-        os.system("java -jar {mars} db nc mc CompactDataAtZero {asm} > {disp}".format(
+        os.system("java -jar {mars} 100000 db nc mc CompactDataAtZero {asm} > {disp}".format(
             mars=mars, asm=dst+'/'+asmname, disp=dst+'/'+dispname))
         # json configuration
         jsonname = testname+'.json'
