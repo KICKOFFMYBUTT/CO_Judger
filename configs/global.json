@@ -1,6 +1,6 @@
 {
-    "identifier": "p5",
-    "defaultTestcasePath": "testcase/ch",
+    "identifier": "p6",
+    "defaultTestcasePath": "testcase",
     "simulatorSupported": [{
         "name": "iverilog",
         "config": "iverilog.json"
@@ -11,7 +11,7 @@
         "name": "ise", 
         "config": "ise.json"
     }],
-    "marsPath": "mars/Mars_m.jar",
+    "marsPath": "mars/mars_CO.jar",
     "logfile": "log.txt",
     "inputfilename": "code.txt",
     "testbench": "runner/tb.v",
