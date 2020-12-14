@@ -36,14 +36,14 @@ class Runner:
             fp.write(content)
         pass
     
-    def _addIncProtect(self, fpath):
-        for fn in os.listdir(fpath):
+    def _addIncProtect(self, fpath, curdir):
+        for fn in os.listdir(fpath + '/' + curdir):
             if fn[-2:] == '.v':
-                self.v_list.append(fn)
-                self._includeProtect(fpath + '/' + fn)
-            cur_f = os.path.join(fpath, fn)
+                self.v_list.append(curdir + '/' + fn)
+                self._includeProtect(fpath + '/' + curdir + '/' + fn)
+            cur_f = (fpath + '/' + curdir + '/' + fn)
             if os.path.isdir(cur_f):
-                self._addIncProtect(cur_f)
+                self._addIncProtect(fpath, curdir + '/' + fn)
 
     def loadcode(self):
         if not os.path.exists(self.src): 
@@ -62,7 +62,7 @@ class Runner:
             IO.writestr("! Runner.loadcode: Error occured on extracting zip")
             return False
         self.v_list = []
-        self._addIncProtect(src_unzip)
+        self._addIncProtect(src_unzip, '')
         # copy testbench
         tb = self.globconf['testbench']
         shutil.copyfile(src=tb, dst=src_unzip+'/tb.v')
