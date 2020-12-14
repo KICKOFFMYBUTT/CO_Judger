@@ -35,6 +35,16 @@ class Runner:
         with open(vfile, "w") as fp:
             fp.write(content)
         pass
+    
+    def _addIncProtect(self, fpath):
+        for fn in os.listdir(fpath):
+            if fn[-2:] == '.v':
+                self.v_list.append(fn)
+                self._includeProtect(fpath + '/' + fn)
+            cur_f = os.path.join(fpath, fn)
+            if os.path.isdir(cur_f):
+                self._addIncProtect(cur_f)
+
     def loadcode(self):
         if not os.path.exists(self.src): 
             IO.writestr("! Runner.loadcode: Source Not Exist!")
@@ -52,11 +62,7 @@ class Runner:
             IO.writestr("! Runner.loadcode: Error occured on extracting zip")
             return False
         self.v_list = []
-        for f in os.listdir(src_unzip):
-            if f[-2:] == ".v":
-                self.v_list.append(f)
-                # IO.writestr("# Extracted %s" % f)
-                self._includeProtect(src_unzip + '/' + f)
+        self._addIncProtect(src_unzip)
         # copy testbench
         tb = self.globconf['testbench']
         shutil.copyfile(src=tb, dst=src_unzip+'/tb.v')
